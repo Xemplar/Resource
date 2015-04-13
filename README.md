@@ -1,2 +1,2 @@
 # Resource
-Base project for xemplar 2d top down projects
+Base project for Xemplar 2D top down game projects, like NerdShooter.
