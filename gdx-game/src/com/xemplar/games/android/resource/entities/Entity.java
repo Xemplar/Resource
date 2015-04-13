@@ -14,7 +14,6 @@ public abstract class Entity extends Tile {
     }
     
     public static final float SPEED = 5f;  // unit per second
-    public static final float JUMP_VELOCITY = 1f;
     public static final int UNLIMITED = 0xF00000;
     protected int health = 0;
     protected int maxHealth;

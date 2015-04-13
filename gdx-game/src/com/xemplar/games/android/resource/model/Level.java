@@ -131,9 +131,14 @@ public class Level {
     }
 
     private void addTile(int x, int y, String id){
-        Tile block = new Tile(new Vector2(x, y), tileName.get(id));
-
-        tiles[x + y * width] = block;
+        Tile tile;
+        
+        if(id.startsWith("cf")){
+            tile = new CollideableTile(new Vector2(x, y), tileName.get(id));
+        } else {
+            tile = new Tile(new Vector2(x, y), tileName.get(id));
+        }
+        tiles[x + y * width] = tile;
     }
 
     public static ObjectMap<String, String> tileName = new ObjectMap<String, String>();
@@ -166,6 +171,10 @@ public class Level {
         tileName.put("dw", "dirt_w");
         tileName.put("dnw", "dirt_nw");
         tileName.put("dm", "dirt_full");
+        
+        tileName.put("cf0", "crystal_floor0");
+        tileName.put("cf1", "crystal_floor1");
+        tileName.put("cf2", "crystal_floor2");
     }
     
     private enum Type{

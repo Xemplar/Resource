@@ -51,7 +51,7 @@ public class Tile {
     }
 
     public boolean isCollideable(){
-        return true;
+        return false;
     }
 
     public boolean isHidden(){
