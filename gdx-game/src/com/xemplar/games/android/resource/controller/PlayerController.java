@@ -291,30 +291,46 @@ public class PlayerController {
 
 
     private boolean processInput() {
+    	boolean hzPressed = false;
+    	boolean vrPressed = false;
+    	
         if (keys.get(Keys.LEFT)) {
             jaxon.setDirection(Entity.Direction.LEFT);
             jaxon.getAcceleration().x = -ACCELERATION;
             
+            hzPressed = true;
+            
             jaxon.setState(Entity.State.WALKING);
-        } else if (keys.get(Keys.RIGHT)) {
+        } if (keys.get(Keys.RIGHT)) {
             jaxon.setDirection(Entity.Direction.RIGHT);
             jaxon.getAcceleration().x = ACCELERATION;
             
+            hzPressed = true;
+            
             jaxon.setState(Entity.State.WALKING);
-        } else if (keys.get(Keys.UP)) {
+        } if (keys.get(Keys.UP)) {
             jaxon.setDirection(Entity.Direction.FORWARD);
             jaxon.getAcceleration().y = ACCELERATION;
             
+            vrPressed = true;
+            
             jaxon.setState(Entity.State.WALKING);
-        } else if (keys.get(Keys.DOWN)) {
+        } if (keys.get(Keys.DOWN)) {
             jaxon.setDirection(Entity.Direction.BACKWARD);
             jaxon.getAcceleration().y = -ACCELERATION;
             
-            jaxon.setState(Entity.State.WALKING);
-        } else {
-            jaxon.getAcceleration().x = 0;
-            jaxon.getAcceleration().y = 0;
+            vrPressed = true;
             
+            jaxon.setState(Entity.State.WALKING);
+        } if(!hzPressed || !vrPressed) {
+        	if(!hzPressed){
+        		jaxon.getAcceleration().x = 0;
+        	}
+        	
+        	if(!vrPressed){
+        		jaxon.getAcceleration().y = 0;
+        	}
+        	
             jaxon.setState(Entity.State.IDLE);
         }
         return false;
