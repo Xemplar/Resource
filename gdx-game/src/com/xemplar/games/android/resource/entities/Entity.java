@@ -30,8 +30,8 @@ public abstract class Entity extends Tile {
     public Entity(Vector2 position, int health) {
         super(position, "tochLit");
         this.position = position;
-        this.bounds.height = WIDTH;
-        this.bounds.width = HEIGHT;
+        this.bounds.width = WIDTH;
+        this.bounds.height = HEIGHT;
         this.bounds.x = position.x;
         this.bounds.y = position.y;
         this.health = health;
@@ -40,22 +40,22 @@ public abstract class Entity extends Tile {
 
     public Entity(Vector2 position, float size, int health) {
         this(position, health);
-        this.bounds.height = size;
         this.bounds.width = size;
+        this.bounds.height = size;
     }
 
     public Entity(Vector2 position, float width, float height, int health) {
         this(position, health);
-        this.bounds.height = width;
-        this.bounds.width = height;
+        this.bounds.width = width;
+        this.bounds.height = height;
     }
 
     public Entity(Vector2 position, String regionID, int health){
         super(position, regionID);
         this.health = health;
         this.position = position;
-        this.bounds.height = WIDTH;
-        this.bounds.width = HEIGHT;
+        this.bounds.width = WIDTH;
+        this.bounds.height = HEIGHT;
         this.bounds.x = position.x;
         this.bounds.y = position.y;
 
@@ -64,14 +64,14 @@ public abstract class Entity extends Tile {
 
     public Entity(Vector2 position, String regionID, float size, int health){
         this(position, regionID, health);
-        this.bounds.height = size;
         this.bounds.width = size;
+        this.bounds.height = size;
     }
 
     public Entity(Vector2 position, String regionID, float width, float height, int health){
         this(position, regionID, health);
-        this.bounds.height = width;
-        this.bounds.width = height;
+        this.bounds.width = width;
+        this.bounds.height = height;
     }
 
     public void setState(State newState) {

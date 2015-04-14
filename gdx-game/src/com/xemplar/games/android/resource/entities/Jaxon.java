@@ -21,7 +21,7 @@ public class Jaxon extends Player{
     private Animation walkDownAnimation;
 
     public Jaxon(Vector2 startPosistion){
-        super(startPosistion, WIDTH * (4F / 5F), HEIGHT * (4F / 5F), 8);
+        super(startPosistion, WIDTH * (1F / 2F), HEIGHT * (3F / 5F), 8);
 
         drawX = (getWidth() / 2F) - (WIDTH / 2F);
         drawX = (drawX < 0) ? -drawX : drawX;
@@ -135,7 +135,7 @@ public class Jaxon extends Player{
         jaxonFrame = getIdle();
 
         if(!isHidden()){
-            batch.draw(jaxonFrame, (getPosition().x - drawX) * ppuX, getPosition().y * ppuY, (WIDTH / 2F) * ppuX, (HEIGHT / 2F) * ppuY);
+            batch.draw(jaxonFrame, (getPosition().x - drawX) * ppuX, getPosition().y * ppuY, (WIDTH * (3F / 5F)) * ppuX, (HEIGHT * (3F / 5F)) * ppuY);
         }
     }
 }
