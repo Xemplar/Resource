@@ -18,7 +18,7 @@
 		<link>
 			<name>assets</name>
 			<type>2</type>
-			<location>J:/Java/Resource-master/gdx-game-android/assets</location>
+			<location>J:/Java/Resource/gdx-game-android/assets</location>
 		</link>
 	</linkedResources>
 </projectDescription>

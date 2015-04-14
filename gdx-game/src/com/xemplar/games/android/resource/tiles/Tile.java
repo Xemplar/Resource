@@ -71,6 +71,7 @@ public class Tile {
     }
 
     public TextureRegion getTexture(){
+    	System.out.println("Tex:" + regionID);
         return GameScreen.getTextureAltlas().findRegion(regionID);
     }
 
@@ -87,7 +88,7 @@ public class Tile {
     }
 
     public void render(SpriteBatch batch, float ppuX, float ppuY){
-        if(!isHidden()){
+        if(!isHidden() && getTexture() != null){
             batch.draw(getTexture(), getPosition().x * ppuX, getPosition().y * ppuY, getWidth() * ppuX, getHeight() * ppuY);
         }   
     }
