@@ -10,7 +10,7 @@ import com.xemplar.games.android.resource.model.*;
 import com.xemplar.games.android.resource.tiles.*;
 
 public class WorldRenderer {
-    private static final float CAMERA_WIDTH = 20.571f;
+    private static final float CAMERA_WIDTH = 20f;
     private static final float CAMERA_HEIGHT = 12f;
 
     private World world;

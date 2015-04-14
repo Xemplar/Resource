@@ -100,7 +100,7 @@ public class GameScreen implements Screen, InputProcessor {
                 attack.renderButton(button);
             }
 
-            world.getJaxon().inventory.renderGUI(button, width, height, buttonSize * 0.75F);
+            //world.getJaxon().inventory.renderGUI(button, width, height, buttonSize * 0.75F);
         } button.end();
 
         batch.begin(); {
@@ -112,7 +112,7 @@ public class GameScreen implements Screen, InputProcessor {
                 attack.renderText(batch);
             }
 
-            world.getJaxon().inventory.renderItems(batch, width, height, buttonSize * 0.75F);
+            //world.getJaxon().inventory.renderItems(batch, width, height, buttonSize * 0.75F);
             font.draw(batch, "Time: " + (seconds / 10D) + " ticks, FPS: " + Gdx.graphics.getFramesPerSecond(), 0, height - 10);
         } batch.end();
     }

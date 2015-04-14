@@ -12,8 +12,8 @@ public class PlayerController {
     }
     
     private static final float MAX_VEL = 4f;
-    private static final float DAMP = 0.90f;
-    private static final float ACCELERATION = 20f;
+    private static final float DAMP = 0.50f;
+    private static final float ACCELERATION = 150f;
 
     private boolean isLeftDown;
     private boolean isRightDown;
@@ -294,18 +294,28 @@ public class PlayerController {
         if (keys.get(Keys.LEFT)) {
             jaxon.setDirection(Entity.Direction.LEFT);
             jaxon.getAcceleration().x = -ACCELERATION;
+            
+            jaxon.setState(Entity.State.WALKING);
         } else if (keys.get(Keys.RIGHT)) {
             jaxon.setDirection(Entity.Direction.RIGHT);
             jaxon.getAcceleration().x = ACCELERATION;
+            
+            jaxon.setState(Entity.State.WALKING);
         } else if (keys.get(Keys.UP)) {
             jaxon.setDirection(Entity.Direction.FORWARD);
             jaxon.getAcceleration().y = ACCELERATION;
-        } else if (keys.get(Keys.RIGHT)) {
+            
+            jaxon.setState(Entity.State.WALKING);
+        } else if (keys.get(Keys.DOWN)) {
             jaxon.setDirection(Entity.Direction.BACKWARD);
             jaxon.getAcceleration().y = -ACCELERATION;
+            
+            jaxon.setState(Entity.State.WALKING);
         } else {
             jaxon.getAcceleration().x = 0;
             jaxon.getAcceleration().y = 0;
+            
+            jaxon.setState(Entity.State.IDLE);
         }
         return false;
     }

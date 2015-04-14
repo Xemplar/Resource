@@ -21,7 +21,7 @@ public class Jaxon extends Player{
     private Animation walkDownAnimation;
 
     public Jaxon(Vector2 startPosistion){
-        super(startPosistion, WIDTH / 2F, HEIGHT / 3F, 8);
+        super(startPosistion, WIDTH * (4F / 5F), HEIGHT * (4F / 5F), 8);
 
         drawX = (getWidth() / 2F) - (WIDTH / 2F);
         drawX = (drawX < 0) ? -drawX : drawX;
@@ -89,8 +89,7 @@ public class Jaxon extends Player{
         if(isDead()){
             respawn();
         }
-
-        stateTime += delta;
+        
         position.mulAdd(velocity.cpy(), delta);
         bounds.x = position.x;
         bounds.y = position.y;

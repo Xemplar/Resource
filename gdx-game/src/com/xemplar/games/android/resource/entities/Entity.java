@@ -163,7 +163,9 @@ public abstract class Entity extends Tile {
                 Timer.schedule(run, 1F);
             }
         }
-
+        
+        stateTime += delta;
+        
         if(!isHidden()){
             updateEntity(delta);
         }
