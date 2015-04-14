@@ -54,10 +54,10 @@ public class GameScreen implements Screen, InputProcessor {
         hud = new TextureAtlas(Gdx.files.internal("textures/ui.pack"));
         
         controlLeft = hud.findRegion("HUDLeft");
-        controlRight = hud.findRegion("HUDLeft");
+        controlRight = new TextureRegion(controlLeft);
         controlRight.flip(true, false);
         controlUp = hud.findRegion("HUDJump");
-        controlDown = hud.findRegion("HUDJump");
+        controlDown = new TextureRegion(controlUp);
         controlDown.flip(false, true);
 
         world = new World(level);
