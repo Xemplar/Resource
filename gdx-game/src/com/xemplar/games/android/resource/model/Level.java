@@ -10,7 +10,6 @@ import java.io.*;
 
 import com.badlogic.gdx.files.*;
 import com.badlogic.gdx.*;
-import com.xemplar.games.android.resource.*;
 
 public class Level {
     public Vector2 jaxonStart;
@@ -135,15 +134,19 @@ public class Level {
     }
 
     private void addTile(int x, int y, String id){
-        tiles[x + y * width] = tileName.get(id).getTile(x,  y);
+    	System.out.println("Tex: " + id);
+    	TileConstructor tile = tileName.get(id);
+    	
+    	if(tile == null){
+    		return;
+    	}
+    	
+        tiles[x + y * width] = tile.getTile(x,  y);
     }
 
     public static ObjectMap<String, TileConstructor> tileName = new ObjectMap<String, TileConstructor>();
 
     static {
-    	//new CollideableTile(new Vector2(x, y), tileName.get(id));
-    	//new Tile(new Vector2(x, y), tileName.get(id));
-    	
         tileName.put("g0", new TileConstructor("grass0"));
         tileName.put("g1", new TileConstructor("grass1"));
         tileName.put("g2", new TileConstructor("grass2"));

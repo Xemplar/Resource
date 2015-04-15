@@ -71,7 +71,6 @@ public class Tile {
     }
 
     public TextureRegion getTexture(){
-    	System.out.println("Tex:" + regionID);
         return GameScreen.getTextureAltlas().findRegion(regionID);
     }
 
