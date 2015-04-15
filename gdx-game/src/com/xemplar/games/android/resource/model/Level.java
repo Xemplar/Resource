@@ -1,9 +1,13 @@
 package com.xemplar.games.android.resource.model;
+import com.xemplar.games.android.resource.tileConstructor.CollideableTileConstructor;
+import com.xemplar.games.android.resource.tileConstructor.TileConstructor;
 import com.xemplar.games.android.resource.tiles.*;
 import com.badlogic.gdx.utils.*;
 import com.xemplar.games.android.resource.entities.*;
 import com.badlogic.gdx.math.*;
+
 import java.io.*;
+
 import com.badlogic.gdx.files.*;
 import com.badlogic.gdx.*;
 import com.xemplar.games.android.resource.*;
@@ -131,49 +135,45 @@ public class Level {
     }
 
     private void addTile(int x, int y, String id){
-        Tile tile;
-        
-        if(id.startsWith("cf")){
-            tile = new CollideableTile(new Vector2(x, y), tileName.get(id));
-        } else {
-            tile = new Tile(new Vector2(x, y), tileName.get(id));
-        }
-        tiles[x + y * width] = tile;
+        tiles[x + y * width] = tileName.get(id).getTile(x,  y);
     }
 
-    public static ObjectMap<String, String> tileName = new ObjectMap<String, String>();
+    public static ObjectMap<String, TileConstructor> tileName = new ObjectMap<String, TileConstructor>();
 
     static {
-        tileName.put("g0", "grass0");
-        tileName.put("g1", "grass1");
-        tileName.put("g2", "grass2");
+    	//new CollideableTile(new Vector2(x, y), tileName.get(id));
+    	//new Tile(new Vector2(x, y), tileName.get(id));
+    	
+        tileName.put("g0", new TileConstructor("grass0"));
+        tileName.put("g1", new TileConstructor("grass1"));
+        tileName.put("g2", new TileConstructor("grass2"));
 
-        tileName.put("gn", "grass_n");
-        tileName.put("gne", "grass_ne");
-        tileName.put("ge", "grass_e");
-        tileName.put("gse", "grass_se");
-        tileName.put("gs", "grass_s");
-        tileName.put("gsw", "grass_sw");
-        tileName.put("gw", "grass_w");
-        tileName.put("gnw", "grass_nw");
-        tileName.put("gm", "grass_full");
+        tileName.put("gn", new TileConstructor("grass_n"));
+        tileName.put("gne", new TileConstructor("grass_ne"));
+        tileName.put("ge", new TileConstructor("grass_e"));
+        tileName.put("gse", new TileConstructor("grass_se"));
+        tileName.put("gs", new TileConstructor("grass_s"));
+        tileName.put("gsw", new TileConstructor("grass_sw"));
+        tileName.put("gw", new TileConstructor("grass_w"));
+        tileName.put("gnw", new TileConstructor("grass_nw"));
+        tileName.put("gm", new TileConstructor("grass_full"));
 
-        tileName.put("d0", "dirt0");
-        tileName.put("d1", "dirt1");
-        tileName.put("d2", "dirt2");
+        tileName.put("d0", new TileConstructor("dirt0"));
+        tileName.put("d1", new TileConstructor("dirt1"));
+        tileName.put("d2", new TileConstructor("dirt2"));
 
-        tileName.put("dn", "dirt_n");
-        tileName.put("dne", "dirt_ne");
-        tileName.put("de", "dirt_e");
-        tileName.put("dse", "dirt_se");
-        tileName.put("ds", "dirt_s");
-        tileName.put("dsw", "dirt_sw");
-        tileName.put("dw", "dirt_w");
-        tileName.put("dnw", "dirt_nw");
-        tileName.put("dm", "dirt_full");
+        tileName.put("dn", new TileConstructor("dirt_n"));
+        tileName.put("dne", new TileConstructor("dirt_ne"));
+        tileName.put("de", new TileConstructor("dirt_e"));
+        tileName.put("dse", new TileConstructor("dirt_se"));
+        tileName.put("ds", new TileConstructor("dirt_s"));
+        tileName.put("dsw", new TileConstructor("dirt_sw"));
+        tileName.put("dw", new TileConstructor("dirt_w"));
+        tileName.put("dnw", new TileConstructor("dirt_nw"));
+        tileName.put("dm", new TileConstructor("dirt_full"));
         
-        tileName.put("cf0", "crystal_floor0");
-        tileName.put("cf1", "crystal_floor1");
-        tileName.put("cf2", "crystal_floor2");
+        tileName.put("cf0", new CollideableTileConstructor("crystal_floor0"));
+        tileName.put("cf1", new CollideableTileConstructor("crystal_floor1"));
+        tileName.put("cf2", new CollideableTileConstructor("crystal_floor2"));
     }
 }

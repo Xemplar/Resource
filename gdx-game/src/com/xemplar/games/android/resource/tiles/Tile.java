@@ -14,7 +14,7 @@ public class Tile {
     protected Vector2 position = new Vector2();
     protected Vector2 spawnPoint = new Vector2();
     protected Rectangle bounds = new Rectangle();
-
+    
     public Tile(Vector2 pos, String regionID) {
         this.regionID = regionID;
         this.spawnPoint = new Vector2(pos);
