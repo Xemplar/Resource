@@ -98,4 +98,15 @@ public class Tile {
             batch.draw(region, getPosition().x * ppuX, getPosition().y * ppuY, getWidth() * ppuX, getHeight() * ppuY);
         }   
     }
+    
+    public static enum Type{
+		Grass,
+		Dirt,
+		Water,
+		Lava,
+		Abyss,
+		Clift,
+		Entity,
+		Other;
+	}
 }

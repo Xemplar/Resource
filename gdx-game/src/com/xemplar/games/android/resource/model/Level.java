@@ -176,10 +176,4 @@ public class Level {
         tileName.put("cf1", "crystal_floor1");
         tileName.put("cf2", "crystal_floor2");
     }
-    
-    private enum Type{
-        Block,
-        Lock,
-        Item;
-    }
 }
