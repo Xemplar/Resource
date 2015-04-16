@@ -2,6 +2,7 @@ package com.xemplar.games.android.resource.ui;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -9,11 +10,19 @@ public class View {
 	private Rectangle bounds;
 	private Color bgColor;
 	private Color borderColor;
+	private Texture bg;
 	
-	private float borderThickness;
-	
-	public View(float x, float y, float width, float height){
+	public View(Texture bg, float x, float y, float width, float height){
+		this.bg = bg;
 		bounds = new Rectangle(x, y, width, height);
+		
+		Pixmap map = new Pixmap((int)bounds.width, (int)bounds.height, Pixmap.Format.RGBA8888);
+		map.setColor(borderColor);
+		map.fillRectangle(0, 0, map.getWidth(), map.getHeight());
+		map.setColor(bgColor);
+		map.drawRectangle(0, 0, map.getWidth(), map.getHeight());
+		
+		bg = new Texture(map);
 	}
 	
 	public float getX(){
@@ -57,6 +66,6 @@ public class View {
 	}
 	
 	public void render(SpriteBatch batch){
-		Pixmap map = new Pixmap(bounds.width, bounds.height, Pixmap.Format.RGBA8888);
+		batch.draw(bg, bounds.x, bounds.y, bounds.width, bounds.height);
 	}
 }
