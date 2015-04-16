@@ -99,18 +99,18 @@ public class Jaxon extends Player{
         }
     }
 
-    public TextureRegion getIdle(){
+    public TextureRegion getFrame(){
         if(getState().equals(Jaxon.State.WALKING)) {
             if(dir == Direction.LEFT){
                 return walkLeftAnimation.getKeyFrame(getStateTime(), true);
             }
-            if(dir == Direction.RIGHT){
+            else if(dir == Direction.RIGHT){
                 return walkRightAnimation.getKeyFrame(getStateTime(), true);
             }
-            if(dir == Direction.FORWARD){
+            else if(dir == Direction.FORWARD){
                 return walkUpAnimation.getKeyFrame(getStateTime(), true);
             }
-            if(dir == Direction.BACKWARD){
+            else if(dir == Direction.BACKWARD){
                 return walkDownAnimation.getKeyFrame(getStateTime(), true);
             }
         } else {
@@ -132,7 +132,7 @@ public class Jaxon extends Player{
     }
     
     public void render(SpriteBatch batch, float ppuX, float ppuY) {
-        jaxonFrame = getIdle();
+        jaxonFrame = getFrame();
 
         if(!isHidden()){
             batch.draw(jaxonFrame, (getPosition().x - drawX) * ppuX, getPosition().y * ppuY, (WIDTH * (3F / 5F)) * ppuX, (HEIGHT * (3F / 5F)) * ppuY);

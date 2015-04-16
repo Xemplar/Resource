@@ -113,7 +113,7 @@ public class GameScreen implements Screen, InputProcessor {
             }
 
             //world.getJaxon().inventory.renderItems(batch, width, height, buttonSize * 0.75F);
-            font.draw(batch, "Time: " + gameTicks + " ticks, FPS: " + Gdx.graphics.getFramesPerSecond(), 0, height - 10);
+            font.draw(batch, "Time: " + gameTicks + " ticks, FPS: " + Gdx.graphics.getFramesPerSecond() + ", Delta: " + delta, 0, height - 10);
         } batch.end();
     }
     

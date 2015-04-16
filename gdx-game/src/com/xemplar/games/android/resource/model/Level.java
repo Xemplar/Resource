@@ -135,7 +135,7 @@ public class Level {
 
     private void addTile(int x, int y, String id){
     	System.out.println("Tex: " + id);
-    	TileConstructor tile = tileName.get(id);
+    	TileConstructor tile = tileName.get(id.trim());
     	
     	if(tile == null){
     		return;

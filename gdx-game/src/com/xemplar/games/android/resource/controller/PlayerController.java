@@ -4,6 +4,8 @@ import com.badlogic.gdx.utils.*;
 import com.xemplar.games.android.resource.tiles.*;
 import com.xemplar.games.android.resource.model.*;
 import com.xemplar.games.android.resource.entities.*;
+import com.xemplar.games.android.resource.entities.Entity.State;
+
 import java.util.*;
 
 public class PlayerController {
@@ -295,42 +297,43 @@ public class PlayerController {
     	boolean vrPressed = false;
     	
         if (keys.get(Keys.LEFT)) {
-            jaxon.setDirection(Entity.Direction.LEFT);
-            jaxon.getAcceleration().x = -ACCELERATION;
+        	jaxon.setDirection(Entity.Direction.LEFT);
+        	jaxon.getAcceleration().x = -ACCELERATION;
             
             hzPressed = true;
             
             jaxon.setState(Entity.State.WALKING);
         } if (keys.get(Keys.RIGHT)) {
-            jaxon.setDirection(Entity.Direction.RIGHT);
-            jaxon.getAcceleration().x = ACCELERATION;
+        	jaxon.setDirection(Entity.Direction.RIGHT);
+        	jaxon.getAcceleration().x = ACCELERATION;
             
             hzPressed = true;
             
             jaxon.setState(Entity.State.WALKING);
         } if (keys.get(Keys.UP)) {
-            jaxon.setDirection(Entity.Direction.FORWARD);
-            jaxon.getAcceleration().y = ACCELERATION;
+        	jaxon.setDirection(Entity.Direction.FORWARD);
+        	jaxon.getAcceleration().y = ACCELERATION;
             
             vrPressed = true;
             
             jaxon.setState(Entity.State.WALKING);
         } if (keys.get(Keys.DOWN)) {
-            jaxon.setDirection(Entity.Direction.BACKWARD);
+        	jaxon.setDirection(Entity.Direction.BACKWARD);
             jaxon.getAcceleration().y = -ACCELERATION;
             
             vrPressed = true;
             
             jaxon.setState(Entity.State.WALKING);
-        } if(!hzPressed || !vrPressed) {
-        	if(!hzPressed){
-        		jaxon.getAcceleration().x = 0;
-        	}
-        	
-        	if(!vrPressed){
-        		jaxon.getAcceleration().y = 0;
-        	}
-        	
+        } 
+        if(!hzPressed){
+    		jaxon.getAcceleration().x = 0;
+    	}
+    	
+    	if(!vrPressed){
+    		jaxon.getAcceleration().y = 0;
+    	}
+    	
+        if(!hzPressed && !vrPressed) {
             jaxon.setState(Entity.State.IDLE);
         }
         return false;

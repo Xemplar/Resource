@@ -23,8 +23,6 @@ public class WorldRenderer {
     private SpriteBatch spriteBatch;
 
     private boolean debug = false;
-    private int width;
-    private int height;
     private float ppuX;
     private float ppuY;
 
@@ -72,7 +70,9 @@ public class WorldRenderer {
     }
 
     private void drawBlocks() {
-        for (Tile tile : world.getTiles((int) CAMERA_WIDTH, (int) CAMERA_HEIGHT)) {
+    	Array<Tile> tiles = world.getTiles((int) CAMERA_WIDTH, (int) CAMERA_HEIGHT);
+    	
+        for (Tile tile : tiles) {
             if(!tile.isHidden()){
                 tile.render(spriteBatch, ppuX, ppuY);
             }
@@ -109,12 +109,8 @@ public class WorldRenderer {
         debugRenderer.end();
     }
 
-    private int count = 0;
-
     public void setSize (int w, int h) {
-        this.width = w;
-        this.height = h;
-        ppuX = 1;//(float)width / CAMERA_WIDTH;
-        ppuY = 1;//(float)height / CAMERA_HEIGHT;
+        ppuX = 1;
+        ppuY = 1;
     }
 }
