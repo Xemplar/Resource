@@ -18,6 +18,8 @@ import com.xemplar.games.android.resource.tiles.Tile;
 import com.xemplar.games.android.resource.view.WorldRenderer;
 
 public class GameScreen implements Screen, InputProcessor {
+	public static float buttonPixels;
+	
     public static boolean useGameDebugRenderer = false;
     public static GameScreen instance;
     public static long gameTicks = 0L;
@@ -96,7 +98,7 @@ public class GameScreen implements Screen, InputProcessor {
 
         button.begin(ShapeRenderer.ShapeType.Filled);{
         	button.setColor(new Color(0x000000));
-        	button.rect(0, height - buttonSize, width, buttonSize);
+        	button.rect(0, height - (height / WorldRenderer.CAMERA_HEIGHT), width, height / WorldRenderer.CAMERA_HEIGHT);
         	
             if (Gdx.app.getType().equals(Application.ApplicationType.Android)){
                 Gdx.gl.glEnable(Gdx.gl20.GL_BLEND);
@@ -139,6 +141,8 @@ public class GameScreen implements Screen, InputProcessor {
         down = new ScreenButton(controlDown, colors, buttonSize * (3F / 2F), buttonSize * (1F / 2F), buttonSize, buttonSize);
 
         attack = new ScreenButton(controlUp, colors, width - (buttonSize * (3F / 2F)), buttonSize * (1F / 2F), buttonSize, buttonSize);
+        
+        buttonPixels = height / WorldRenderer.CAMERA_HEIGHT;
     }
 
     public void hide() {

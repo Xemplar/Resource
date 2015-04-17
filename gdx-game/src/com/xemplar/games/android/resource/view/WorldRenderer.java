@@ -7,11 +7,13 @@ import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.*;
 import com.xemplar.games.android.resource.entities.*;
 import com.xemplar.games.android.resource.model.*;
+import com.xemplar.games.android.resource.screens.GameScreen;
 import com.xemplar.games.android.resource.tiles.*;
 
 public class WorldRenderer {
-    private static final float CAMERA_WIDTH = 20f;
-    private static final float CAMERA_HEIGHT = 12f;
+    public static final float CAMERA_WIDTH = 20f;
+    public static final float CAMERA_HEIGHT = 12f;
+    private static final float camera_height_mod = CAMERA_HEIGHT - 2;
 
     private World world;
     private OrthographicCamera cam;
@@ -29,7 +31,7 @@ public class WorldRenderer {
     public WorldRenderer(World world, boolean debug) {
         this.world = world;
         this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
-        this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
+        this.cam.position.set(CAMERA_WIDTH / 2f, camera_height_mod / 2f, 0);
         this.cam.update();
         this.debug = debug;
         spriteBatch = new SpriteBatch();
@@ -37,7 +39,7 @@ public class WorldRenderer {
 
     public void render() {
         world.getJaxon().getBounds().getCenter(center);
-        moveCamera(center.x, center.y);
+        moveCamera(center.x, center.y + 1F);
         spriteBatch.setProjectionMatrix(cam.combined);
 
         spriteBatch.begin();
@@ -49,9 +51,10 @@ public class WorldRenderer {
         if (debug) drawDebug();
     }
 
-    public void moveCamera(float x,float y){
+    public void moveCamera(float x, float y){
+    	
         float xCam = CAMERA_WIDTH / 2F;
-        float yCam = CAMERA_HEIGHT / 2F;
+        float yCam = camera_height_mod / 2F;
 
         if (x > (CAMERA_WIDTH / 2F)) {
             xCam = x;
@@ -59,20 +62,27 @@ public class WorldRenderer {
             xCam = world.getLevel().getWidth() - (CAMERA_WIDTH / 2F);
         }
 
-        if (y > (CAMERA_HEIGHT / 2F)) {
+        if (y > (camera_height_mod / 2F)) {
             yCam = y;
-        } if(y > (world.getLevel().getHeight() - (CAMERA_HEIGHT / 2F))){
-            yCam = world.getLevel().getHeight() - (CAMERA_HEIGHT / 2F);
+        } if(y > (world.getLevel().getHeight() - (camera_height_mod / 2F)) - 1){
+            yCam = ((world.getLevel().getHeight()) - (camera_height_mod / 2F)) - 1;
         }
 
-        cam.position.set(xCam, yCam, 0);
+        cam.position.set(xCam, yCam + 1, 0);
         cam.update();
     }
 
     private void drawBlocks() {
-    	Array<Tile> tiles = world.getTiles((int) CAMERA_WIDTH, (int) CAMERA_HEIGHT);
+    	Array<Tile> tiles = world.getTiles((int) CAMERA_WIDTH, (int) camera_height_mod);
+    	Array<Tile> ovelays = world.getOverlayTiles((int) CAMERA_WIDTH, (int) camera_height_mod);
     	
-        for (Tile tile : tiles) {
+    	for (Tile tile : tiles) {
+            if(!tile.isHidden()){
+                tile.render(spriteBatch, ppuX, ppuY);
+            }
+        }
+    	
+    	for (Tile tile : ovelays) {
             if(!tile.isHidden()){
                 tile.render(spriteBatch, ppuX, ppuY);
             }

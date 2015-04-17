@@ -17,6 +17,7 @@ public class Level {
     private int height;
 
     private Tile[] tiles;
+    protected Tile[] overlay;
 
     private Array<Entity> entities;
 
@@ -45,6 +46,10 @@ public class Level {
     }
 
     public Tile[] getTiles() {
+        return tiles;
+    }
+    
+    public Tile[] getOverlayTiles() {
         return tiles;
     }
 
@@ -143,7 +148,7 @@ public class Level {
     	
         tiles[x + y * width] = tile.getTile(x,  y);
     }
-
+    
     public static ObjectMap<String, TileConstructor> tileName = new ObjectMap<String, TileConstructor>();
 
     static {
