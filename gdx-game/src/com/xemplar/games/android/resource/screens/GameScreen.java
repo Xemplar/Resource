@@ -1,15 +1,21 @@
 package com.xemplar.games.android.resource.screens;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.Input.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.math.*;
-import com.xemplar.games.android.resource.model.*;
-import com.badlogic.gdx.utils.*;
-import com.xemplar.games.android.resource.tiles.*;
-import com.xemplar.games.android.resource.view.*;
-import com.xemplar.games.android.resource.controller.*;
-import com.badlogic.gdx.graphics.glutils.*;
-import com.xemplar.games.android.resource.entities.*;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
+import com.xemplar.games.android.resource.controller.PlayerController;
+import com.xemplar.games.android.resource.entities.Entity;
+import com.xemplar.games.android.resource.model.World;
+import com.xemplar.games.android.resource.tiles.Tile;
+import com.xemplar.games.android.resource.view.WorldRenderer;
 
 public class GameScreen implements Screen, InputProcessor {
     public static boolean useGameDebugRenderer = false;
@@ -89,6 +95,9 @@ public class GameScreen implements Screen, InputProcessor {
         renderer.render();
 
         button.begin(ShapeRenderer.ShapeType.Filled);{
+        	button.setColor(new Color(0x000000));
+        	button.rect(0, height - buttonSize, width, buttonSize);
+        	
             if (Gdx.app.getType().equals(Application.ApplicationType.Android)){
                 Gdx.gl.glEnable(Gdx.gl20.GL_BLEND);
                 Gdx.gl.glBlendFunc(Gdx.gl20.GL_SRC_ALPHA, Gdx.gl20.GL_ONE_MINUS_SRC_ALPHA);
