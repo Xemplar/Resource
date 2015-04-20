@@ -50,11 +50,15 @@ public class Level {
     }
     
     public Tile[] getOverlayTiles() {
-        return tiles;
+        return overlay;
     }
 
-    public void setBlocks(Tile[] tiles) {
+    public void setTiles(Tile[] tiles) {
         this.tiles = tiles;
+    }
+    
+    public void setOverlayTiles(Tile[] tiles) {
+        this.overlay = tiles;
     }
     
     public Level(int levelNum){
@@ -64,8 +68,12 @@ public class Level {
     public Tile get(int i) {
         return tiles[i];
     }
+    
+    public Tile getOverlay(int i) {
+        return overlay[i];
+    }
 
-    private Vector2 loadLevel(int num){
+    protected Vector2 loadLevel(int num){
         Vector2 value = new Vector2(1, 1);
 
         width = 50;
@@ -132,9 +140,14 @@ public class Level {
         entities = new Array<Entity>();
         
         tiles = new Tile[width * height];
+        overlay = new Tile[width * height];
 
         for (int index = 0; index < tiles.length; index++) {
             tiles[index] = null;
+        }
+        
+        for (int index = 0; index < overlay.length; index++) {
+        	overlay[index] = null;
         }
     }
 
@@ -147,6 +160,17 @@ public class Level {
     	}
     	
         tiles[x + y * width] = tile.getTile(x,  y);
+    }
+    
+    private void addOverlayTile(int x, int y, String id){
+    	System.out.println("Tex: " + id);
+    	TileConstructor tile = tileName.get(id.trim());
+    	
+    	if(tile == null){
+    		return;
+    	}
+    	
+        overlay[x + y * width] = tile.getTile(x,  y);
     }
     
     public static ObjectMap<String, TileConstructor> tileName = new ObjectMap<String, TileConstructor>();

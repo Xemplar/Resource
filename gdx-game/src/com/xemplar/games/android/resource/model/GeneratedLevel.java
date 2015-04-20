@@ -8,36 +8,29 @@ import com.xemplar.games.android.resource.tiles.Tile;
 public class GeneratedLevel extends Level {
 	public GeneratedLevel(int levelNum) {
 		super(levelNum);
-		
-		overlay = generateTrees();
 	}
 	
-	public Tile[] generateTrees(){
+	protected Vector2 loadLevel(int num){
+		Vector2 out = super.loadLevel(num);
+		
 		int width = getWidth();
 		int height = getHeight();
 		
 		int size = width * height;
-		Tile[] tiles = new Tile[width * height];
 		
 		for(int i = 0; i < size; i++){
 			Tile t = get(i);
 			
-			if(!t.isCollideable()){
-				tiles[i] = (t);
+			int rand = MathUtils.random(10);
+			
+			if(!t.isCollideable() && rand == 1){
+				int y = i / width;
+				int x = i % width;
+				
+				overlay[i] = new Tile(new Vector2(y + 1, x + 1), "tree0");
 			}
 		}
 		
-		for(int i = 0; i < 10; i++){
-			float randX = MathUtils.random(10) + 1;
-			float randY = MathUtils.random(10) + 1;
-			
-			tiles.add(new Tile(new Vector2(randX, randY), "tree0"));
-		}
-		
-		return tiles.toArray();
-	}
-	
-	public void render(){
-		
+		return out;
 	}
 }

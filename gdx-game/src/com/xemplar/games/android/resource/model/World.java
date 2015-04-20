@@ -40,6 +40,17 @@ public class World {
 
         return null;
     }
+    
+    public Tile getOvelayTile(Vector2 pos){
+        Array<Tile> blocks = getTiles(level.getWidth(), level.getHeight());
+        for(Tile block : blocks){
+            if(block.getBounds().contains(pos)){
+                return block;
+            }
+        }
+
+        return null;
+    }
 
     public Array<Tile> getTiles(int width, int height) {
         int x = (int)jaxon.getPosition().x - width;

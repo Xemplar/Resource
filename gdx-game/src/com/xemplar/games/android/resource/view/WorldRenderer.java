@@ -111,6 +111,12 @@ public class WorldRenderer {
             debugRenderer.setColor(new Color(1, 0, 0, 1));
             debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
         }
+        
+        for (Tile tile : world.getOverlayTiles((int)CAMERA_WIDTH, (int)CAMERA_HEIGHT)) {
+            Rectangle rect = tile.getBounds();
+            debugRenderer.setColor(new Color(0, 0, 1, 1));
+            debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
+        }
 
         Jaxon jaxon = world.getJaxon();
         Rectangle rect = jaxon.getBounds();
