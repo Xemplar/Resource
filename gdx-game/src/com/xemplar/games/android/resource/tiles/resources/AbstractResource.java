@@ -9,22 +9,14 @@ public abstract class AbstractResource extends Tile{
     }
 
     public AbstractResource(Vector2 pos, String regionID, float size) {
-        this.regionID = regionID;
-        this.spawnPoint = new Vector2(pos);
-        this.position = pos;
-        this.bounds.setPosition(pos);
-        this.bounds.width = size;
-        this.bounds.height = size;
+    	super(pos, regionID, size);
     }
 
     public AbstractResource(Vector2 pos, String regionID, float width, float height) {
-        this.regionID = regionID;
-        this.spawnPoint = new Vector2(pos);
-        this.position = pos;
-        this.bounds.setPosition(pos);
-        this.bounds.width = width;
-        this.bounds.height = height;
+    	super(pos, regionID, width, height);
     }
+    
+    public abstract int collectTicks();
     
     public static enum ResourceType{
     	Wood,

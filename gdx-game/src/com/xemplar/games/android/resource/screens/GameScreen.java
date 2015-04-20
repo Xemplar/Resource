@@ -15,6 +15,7 @@ import com.xemplar.games.android.resource.controller.PlayerController;
 import com.xemplar.games.android.resource.entities.Entity;
 import com.xemplar.games.android.resource.model.World;
 import com.xemplar.games.android.resource.tiles.Tile;
+import com.xemplar.games.android.resource.ui.ProgressCircle;
 import com.xemplar.games.android.resource.view.WorldRenderer;
 
 public class GameScreen implements Screen, InputProcessor {
@@ -31,6 +32,7 @@ public class GameScreen implements Screen, InputProcessor {
 
     private Array<Tile> tiles;
     private static int levelNum;
+    private ProgressCircle cir;
 
     private WorldRenderer renderer;
     private PlayerController controller;
@@ -78,6 +80,8 @@ public class GameScreen implements Screen, InputProcessor {
     public void show() {
         gameTicks = 0L;
 
+        cir = new ProgressCircle(Color.BLUE, 0F, 0F, 32F, 32F);
+        
         renderer = new WorldRenderer(world, useGameDebugRenderer);
         controller = new PlayerController(world);
         controller.reset();
@@ -95,7 +99,7 @@ public class GameScreen implements Screen, InputProcessor {
         controller.update(delta);
         updateEntities(delta);
         renderer.render();
-
+        
         button.begin(ShapeRenderer.ShapeType.Filled);{
         	button.setColor(new Color(0x000000));
         	button.rect(0, height - (height / WorldRenderer.CAMERA_HEIGHT), width, height / WorldRenderer.CAMERA_HEIGHT);
@@ -123,8 +127,9 @@ public class GameScreen implements Screen, InputProcessor {
                 attack.renderText(batch);
             }
 
+            cir.render(batch);
             //world.getJaxon().inventory.renderItems(batch, width, height, buttonSize * 0.75F);
-            font.draw(batch, "Time: " + gameTicks + " ticks, FPS: " + Gdx.graphics.getFramesPerSecond() + ", Delta: " + delta, 0, height - 10);
+            font.draw(batch, "Time: " + gameTicks + " ticks, FPS: " + Gdx.graphics.getFramesPerSecond() + ", Degrees: " + (float) ((gameTicks / 1F) % 360F) + ", Delta: " + delta, 0, height - 10);
         } batch.end();
     }
     

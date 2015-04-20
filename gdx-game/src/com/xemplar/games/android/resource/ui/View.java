@@ -16,13 +16,13 @@ public class View {
 		this.bg = bg;
 		bounds = new Rectangle(x, y, width, height);
 		
-		Pixmap map = new Pixmap((int)bounds.width, (int)bounds.height, Pixmap.Format.RGBA8888);
+		/*Pixmap map = new Pixmap((int)bounds.width, (int)bounds.height, Pixmap.Format.RGBA8888);
 		map.setColor(borderColor);
 		map.fillRectangle(0, 0, map.getWidth(), map.getHeight());
 		map.setColor(bgColor);
 		map.drawRectangle(0, 0, map.getWidth(), map.getHeight());
 		
-		bg = new Texture(map);
+		bg = new Texture(map); */
 	}
 	
 	public float getX(){
