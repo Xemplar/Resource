@@ -24,20 +24,18 @@ public class ProgressCircle extends View{
 	}
 	
 	public void render(SpriteBatch batch){
-		float degree = (float) (((GameScreen.gameTicks) / 2F) % 360);
+		float degree = (float) ((GameScreen.gameTicks / 1F) % 360F);
 		
-		if(degree >= 360){
+		if(degree == 0){
 			map.setColor(Color.CLEAR);
-			//map.fill();
+			map.fill();
 		}
 		
-		float x = (float) (MathUtils.cosDeg(degree)) * getWidth();
-		float y = (float) (MathUtils.sinDeg(degree)) * getHeight(); 
-		
-		System.out.println("X: " + x);
+		int x = (int) (MathUtils.cosDeg(degree) * getWidth());
+		int y = (int) (MathUtils.sinDeg(degree) * getHeight()); 
 		
 		map.setColor(color);
-		map.drawLine((int)x, centerY, centerX, (int)y);
+		map.drawLine(x, y, centerX, centerY);
 		
 		batch.draw(new Texture(map), getX(), getY(), getWidth(), getHeight());
 	}

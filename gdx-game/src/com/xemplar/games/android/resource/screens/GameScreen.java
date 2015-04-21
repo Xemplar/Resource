@@ -79,6 +79,8 @@ public class GameScreen implements Screen, InputProcessor {
 
     public void show() {
         gameTicks = 0L;
+
+        cir = new ProgressCircle(Color.BLUE, 0F, 0F, 32F, 32F);
         
         renderer = new WorldRenderer(world, useGameDebugRenderer);
         controller = new PlayerController(world);
@@ -127,7 +129,7 @@ public class GameScreen implements Screen, InputProcessor {
 
             cir.render(batch);
             //world.getJaxon().inventory.renderItems(batch, width, height, buttonSize * 0.75F);
-            font.draw(batch, "Time: " + gameTicks + " ticks, FPS: " + Gdx.graphics.getFramesPerSecond() + ", Degrees: " + (float) ((((GameScreen.gameTicks) * (180 / Math.PI) / 500F) % (Math.PI * 2)) / Math.PI) + ", Delta: " + delta, 0, height - 10);
+            font.draw(batch, "Time: " + gameTicks + " ticks, FPS: " + Gdx.graphics.getFramesPerSecond() + ", Degrees: " + (float) ((gameTicks / 1F) % 360F) + ", Delta: " + delta, 0, height - 10);
         } batch.end();
     }
     
@@ -146,9 +148,6 @@ public class GameScreen implements Screen, InputProcessor {
         attack = new ScreenButton(controlUp, colors, width - (buttonSize * (3F / 2F)), buttonSize * (1F / 2F), buttonSize, buttonSize);
         
         buttonPixels = height / WorldRenderer.CAMERA_HEIGHT;
-        
-
-        cir = new ProgressCircle(Color.BLUE, 0F, 0F, buttonSize, buttonSize);
     }
 
     public void hide() {
