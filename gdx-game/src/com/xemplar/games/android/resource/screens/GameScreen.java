@@ -79,8 +79,6 @@ public class GameScreen implements Screen, InputProcessor {
 
     public void show() {
         gameTicks = 0L;
-
-        cir = new ProgressCircle(Color.BLUE, 0F, 0F, 32F, 32F);
         
         renderer = new WorldRenderer(world, useGameDebugRenderer);
         controller = new PlayerController(world);
@@ -146,7 +144,8 @@ public class GameScreen implements Screen, InputProcessor {
         down = new ScreenButton(controlDown, colors, buttonSize * (3F / 2F), buttonSize * (1F / 2F), buttonSize, buttonSize);
 
         attack = new ScreenButton(controlUp, colors, width - (buttonSize * (3F / 2F)), buttonSize * (1F / 2F), buttonSize, buttonSize);
-        
+
+        cir = new ProgressCircle(Color.WHITE, 0F, 0F, width / WorldRenderer.CAMERA_WIDTH, height / WorldRenderer.CAMERA_HEIGHT);
         buttonPixels = height / WorldRenderer.CAMERA_HEIGHT;
     }
 
