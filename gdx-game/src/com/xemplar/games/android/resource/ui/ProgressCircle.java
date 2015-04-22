@@ -11,6 +11,7 @@ public class ProgressCircle extends View{
 	private Color color;
 	private int centerX, centerY;
 	private Pixmap map;
+	private int lastX = -1, lastY = -1;
 	
 	public ProgressCircle(Color color, float x, float y, float width, float height) {
 		super(null, x, y, width, height);
@@ -24,21 +25,42 @@ public class ProgressCircle extends View{
 	}
 	
 	public void render(SpriteBatch batch){
-		int degree = (int) ((GameScreen.gameTicks / 1.0F) % 360F);
+		int degree = (int) ((GameScreen.gameTicks * 5.0F) % 720F);
 		
 		if(degree == 0){
+			lastX = -1;
+			lastY = -1;
+			
 			map.setColor(Color.CLEAR);
 			map.fill();
 			
 			map.setColor(Color.GRAY);
-			map.drawCircle(centerX, centerY, (int)((getWidth() + getHeight()) / 4));
+			int x, y, preX = -1, preY = -1;
+			
+			for(int i = 0; i < 360; i++){
+				x = (int) (centerX + (MathUtils.cosDeg(i + 0) * (getWidth() - (getWidth() / 8F)) / 2F));
+				y = (int) (centerY + (MathUtils.sinDeg(i + 0) * (getHeight() - (getHeight() / 8F)) / 2F));
+				
+				if(preX != -1){
+					map.drawLine(preX, preY, x, y);
+				}
+				
+				preX = x;
+				preY = y;
+			}
+			
+			map.setColor(color);
 		}
 		
-		int x = (int) (centerX + (MathUtils.cosDeg(degree + 0) * (getWidth() - 2) / 2F));
-		int y = (int) (centerY + (MathUtils.sinDeg(degree + 0) * (getHeight() - 2) / 2F));
+		int x = (int) (centerX + (MathUtils.cosDeg((degree / 2) + 270) * (getWidth() - (getWidth() / 8F)) / 2F));
+		int y = (int) (centerY + (MathUtils.sinDeg((degree / 2) + 270) * (getHeight() - (getHeight() / 8F)) / 2F));
 		
-		map.setColor(color);
-		map.drawLine(x, y, x, y);
+		if(lastX != -1){
+			map.drawLine(lastX, lastY, x, y);
+		}
+		
+		lastX = x;
+		lastY = y;
 		
 		batch.draw(new Texture(map), getX(), getY(), getWidth(), getHeight());
 	}
