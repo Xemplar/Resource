@@ -16,6 +16,7 @@ import com.xemplar.games.android.resource.entities.Entity;
 import com.xemplar.games.android.resource.model.World;
 import com.xemplar.games.android.resource.tiles.Tile;
 import com.xemplar.games.android.resource.ui.ProgressCircle;
+import com.xemplar.games.android.resource.ui.ProgressReporter;
 import com.xemplar.games.android.resource.view.WorldRenderer;
 
 public class GameScreen implements Screen, InputProcessor {
@@ -32,14 +33,14 @@ public class GameScreen implements Screen, InputProcessor {
 
     private Array<Tile> tiles;
     private static int levelNum;
-    private ProgressCircle cir;
+    private static ProgressCircle cir;
 
     private WorldRenderer renderer;
     private PlayerController controller;
     private ShapeRenderer button;
     private SpriteBatch batch;
     private BitmapFont font;
-    private int width, height;
+    private static int width, height;
 
     private TextureRegion controlLeft;
     private TextureRegion controlRight;
@@ -124,8 +125,10 @@ public class GameScreen implements Screen, InputProcessor {
                 down.renderText(batch);
                 attack.renderText(batch);
             }
-
-            cir.render(batch);
+            
+            if(cir != null){
+            	cir.render(batch);
+            }
             //world.getJaxon().inventory.renderItems(batch, width, height, buttonSize * 0.75F);
             font.draw(batch, "Time: " + gameTicks + " ticks, FPS: " + Gdx.graphics.getFramesPerSecond() + ", Degrees: " + (float) ((gameTicks / 1F) % 360F) + ", Delta: " + delta, 0, height - 10);
         } batch.end();
@@ -144,8 +147,7 @@ public class GameScreen implements Screen, InputProcessor {
         down = new ScreenButton(controlDown, colors, buttonSize * (3F / 2F), buttonSize * (1F / 2F), buttonSize, buttonSize);
 
         attack = new ScreenButton(controlUp, colors, width - (buttonSize * (3F / 2F)), buttonSize * (1F / 2F), buttonSize, buttonSize);
-
-        cir = new ProgressCircle(Color.WHITE, 0F, 0F, width / WorldRenderer.CAMERA_WIDTH, height / WorldRenderer.CAMERA_HEIGHT);
+        
         buttonPixels = height / WorldRenderer.CAMERA_HEIGHT;
     }
 
@@ -318,6 +320,17 @@ public class GameScreen implements Screen, InputProcessor {
         }
     }
 
+    public static void postTask(ProgressReporter reporter, long ticks){
+    	if(cir == null){
+    		cir = new ProgressCircle(reporter, Color.WHITE, 50F, 50F, width / WorldRenderer.CAMERA_WIDTH, height / WorldRenderer.CAMERA_HEIGHT);
+    		cir.start();
+    	}
+    }
+    
+    public static void taskFinished(){
+    	cir = null;
+    }
+    
     public static TextureAtlas getTextureAltlas(){
         return terrain;
 	}

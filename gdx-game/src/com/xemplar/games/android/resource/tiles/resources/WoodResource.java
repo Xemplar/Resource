@@ -5,8 +5,8 @@ import com.xemplar.games.android.resource.items.ItemStack;
 
 public class WoodResource extends AbstractResource{
 
-	public WoodResource(Vector2 pos, ResourceType type) {
-		super(pos, type);
+	public WoodResource(Vector2 pos) {
+		super(pos, AbstractResource.ResourceType.Wood);
 	}
 	
 	public int collectTicks() {

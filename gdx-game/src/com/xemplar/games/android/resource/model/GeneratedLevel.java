@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.xemplar.games.android.resource.tiles.Tile;
+import com.xemplar.games.android.resource.tiles.resources.WoodResource;
 
 public class GeneratedLevel extends Level {
 	public GeneratedLevel(int levelNum) {
@@ -27,7 +28,7 @@ public class GeneratedLevel extends Level {
 				int y = i / width;
 				int x = i % width;
 				
-				overlay[i] = new Tile(new Vector2(y + 1, x + 1), "tree0");
+				overlay[i] = new WoodResource(new Vector2(y + 1, x + 1));
 			}
 		}
 		

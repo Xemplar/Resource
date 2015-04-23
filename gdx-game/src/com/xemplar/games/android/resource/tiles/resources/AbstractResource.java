@@ -2,8 +2,11 @@ package com.xemplar.games.android.resource.tiles.resources;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.xemplar.games.android.resource.entities.Entity;
 import com.xemplar.games.android.resource.items.ItemStack;
+import com.xemplar.games.android.resource.screens.GameScreen;
 import com.xemplar.games.android.resource.tiles.Tile;
+import com.xemplar.games.android.resource.ui.ProgressReporter;
 
 public abstract class AbstractResource extends Tile{
 	public AbstractResource(Vector2 pos, ResourceType type) {
@@ -23,6 +26,29 @@ public abstract class AbstractResource extends Tile{
     
     public boolean isCollideable(){
     	return true;
+    }
+    
+    public boolean isTouchable(){
+    	return true;
+    }
+    
+    public void onTouch(Entity e){
+    	ProgressReporter report = new ProgressReporter(){
+			public void postProgress(long progress) {
+				System.out.println("progress " + progress);
+			}
+
+			public void onFinish() {
+				GameScreen.taskFinished();
+				System.out.println("finish");
+			}
+			
+			public void onStart() {
+				System.out.println("start");
+			}
+    	};
+    	
+    	GameScreen.postTask(report, collectTicks());
     }
     
     public static enum ResourceType{
