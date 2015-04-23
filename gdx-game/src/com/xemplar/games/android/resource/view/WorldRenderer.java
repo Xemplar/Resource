@@ -16,7 +16,7 @@ public class WorldRenderer {
     private static final float camera_height_mod = CAMERA_HEIGHT - 2;
 
     private World world;
-    private OrthographicCamera cam;
+    private static OrthographicCamera cam;
     private Vector2 center = new Vector2();
     ShapeRenderer debugRenderer = new ShapeRenderer();
 
@@ -30,9 +30,9 @@ public class WorldRenderer {
 
     public WorldRenderer(World world, boolean debug) {
         this.world = world;
-        this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
-        this.cam.position.set(CAMERA_WIDTH / 2f, camera_height_mod / 2f, 0);
-        this.cam.update();
+        cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
+        cam.position.set(CAMERA_WIDTH / 2f, camera_height_mod / 2f, 0);
+        cam.update();
         this.debug = debug;
         spriteBatch = new SpriteBatch();
     }
@@ -51,6 +51,13 @@ public class WorldRenderer {
         if (debug) drawDebug();
     }
 
+    public static Vector2 getPosRelToScreen(Vector2 pos){
+    	float x = pos.x - cam.position.x;
+    	float y = pos.y - cam.position.y;
+    	
+    	return new Vector2(x, y);
+    }
+    
     public void moveCamera(float x, float y){
     	
         float xCam = CAMERA_WIDTH / 2F;

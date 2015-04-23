@@ -1,10 +1,12 @@
 package com.xemplar.games.android.resource.ui;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.resource.tiles.Tile;
+import com.xemplar.games.android.resource.view.WorldRenderer;
 
 public class View {
 	private Rectangle bounds;
@@ -63,6 +65,12 @@ public class View {
 	
 	public Color getBGColor(){
 		return bgColor;
+	}
+	
+	public void bindToTile(Tile t){
+		Vector2 pos = t.getPosition();
+		
+		bounds.setPosition(WorldRenderer.getPosRelToScreen(pos));
 	}
 	
 	public void render(SpriteBatch batch){

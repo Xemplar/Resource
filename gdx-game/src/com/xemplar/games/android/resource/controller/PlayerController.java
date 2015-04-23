@@ -38,6 +38,7 @@ public class PlayerController {
     };
 
     private static Tile[] tiles;
+    private static Tile[] overlays;
     private static int length;
 
     private World world;
@@ -58,6 +59,7 @@ public class PlayerController {
         this.jaxon = world.getJaxon();
 
         tiles = world.getLevel().getTiles();
+        overlays = world.getLevel().getOverlayTiles();
         length = tiles.length;
     }
 
@@ -176,7 +178,7 @@ public class PlayerController {
         Rectangle jaxonRect = rectPool.obtain();
         jaxonRect.set(jaxon.getBounds().x, jaxon.getBounds().y, jaxon.getBounds().width, jaxon.getBounds().height);
 
-        populateCollidableBlocks();
+        populateCollidableTiles();
         jaxonRect.x += jaxon.getVelocity().x;
         world.getCollisionRects().clear();
 
@@ -207,7 +209,7 @@ public class PlayerController {
             }
         }
 
-        populateCollidableBlocks();
+        populateCollidableTiles();
         jaxonRect.y += jaxon.getVelocity().y;
         world.getCollisionRects().clear();
 
@@ -241,7 +243,7 @@ public class PlayerController {
         jaxon.getVelocity().scl(1 / delta);
     }
 
-    private void populateCollidableBlocks() {
+    private void populateCollidableTiles() {
         collidable.clear();
 
         Vector2 pos = jaxon.getPosition().cpy().add(jaxon.getVelocity().cpy());
@@ -258,6 +260,28 @@ public class PlayerController {
                         collidable.add(current);
                     }
                 } else if (tiles[i].isTouchable()) {
+                    float xDist = Math.abs(current.getPosition().x - pos.x);
+                    float yDist = Math.abs(current.getPosition().y - pos.y);
+
+                    if (xDist < 1F && yDist < 1F) {
+                        collidable.add(current);
+                    }
+                }
+            }
+        }
+        
+        for (int i = 0; i < length; i++) {
+            Tile current = overlays[i];
+
+            if (current != null) {
+                if (current.isCollideable()) {
+                    float xDist = Math.abs(current.getPosition().x - pos.x);
+                    float yDist = Math.abs(current.getPosition().y - pos.y);
+
+                    if (xDist < 1F && yDist < 1F) {
+                        collidable.add(current);
+                    }
+                } else if (overlays[i].isTouchable()) {
                     float xDist = Math.abs(current.getPosition().x - pos.x);
                     float yDist = Math.abs(current.getPosition().y - pos.y);
 
