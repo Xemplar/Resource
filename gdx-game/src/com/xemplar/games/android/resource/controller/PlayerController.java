@@ -172,7 +172,76 @@ public class PlayerController {
         
         jaxon.update(delta);
     }
+    
+    private void checkTouching(float delta){
+    	Rectangle jaxonRect = rectPool.obtain();
+        jaxonRect.set(jaxon.getBounds().x, jaxon.getBounds().y, jaxon.getBounds().width, jaxon.getBounds().height);
 
+        populateCollidableTiles();
+        jaxonRect.x += jaxon.getVelocity().x;
+        world.getCollisionRects().clear();
+
+        for (Tile tile : collidable) {
+            if (tile == null) continue;
+
+            if (jaxonRect.overlaps(tile.getBounds()) && (tile.isTouchable())) {
+                tile.onTouch(jaxon);
+            }
+
+            if (jaxonRect.overlaps(tile.getBounds()) && tile.isCollideable()) {
+                jaxon.getVelocity().x = 0;
+                world.getCollisionRects().add(tile.getBounds());
+
+                if (jaxon.getBounds().overlaps(tile.getBounds())) {
+                    float jaxonX = jaxon.getPosition().x;
+                    float blockX = tile.getPosition().x;
+
+                    System.out.println("got stuck");
+
+                    if (jaxonX < blockX) {
+                        jaxon.getPosition().x = tile.getPosition().x - jaxon.getWidth();
+                    } else {
+                        jaxon.getPosition().x = tile.getPosition().x + tile.getWidth();
+                    }
+                }
+                break;
+            }
+        }
+
+        populateCollidableTiles();
+        jaxonRect.y += jaxon.getVelocity().y;
+        world.getCollisionRects().clear();
+
+        for (Tile tile : collidable) {
+            if (tile == null) continue;
+
+            if (jaxonRect.overlaps(tile.getBounds()) && (tile.isTouchable())) {
+                tile.onTouch(jaxon);
+            }
+
+            if (jaxonRect.overlaps(tile.getBounds()) && tile.isCollideable()) {
+                jaxon.getVelocity().y = 0;
+                world.getCollisionRects().add(tile.getBounds());
+
+                if (jaxon.getBounds().overlaps(tile.getBounds())) {
+                    float jaxonY = jaxon.getPosition().y;
+                    float blockY = tile.getPosition().y;
+
+                    System.out.println("got stuck");
+
+                    if (jaxonY < blockY) {
+                        jaxon.getPosition().y = tile.getPosition().y - jaxon.getHeight();
+                    } else {
+                        jaxon.getPosition().y = tile.getPosition().y + tile.getHeight();
+                    }
+                }
+                break;
+            }
+        }
+
+        jaxon.getVelocity().scl(1 / delta);
+    }
+    
     private void checkCollisionWithBlocks(float delta) {
         jaxon.getVelocity().scl(delta);
         Rectangle jaxonRect = rectPool.obtain();
@@ -281,11 +350,13 @@ public class PlayerController {
                     if (xDist < 1F && yDist < 1F) {
                         collidable.add(current);
                     }
-                } else if (overlays[i].isTouchable()) {
+                } else if (overlays[i].isTouchable()){
+                	
                     float xDist = Math.abs(current.getPosition().x - pos.x);
                     float yDist = Math.abs(current.getPosition().y - pos.y);
 
                     if (xDist < 1F && yDist < 1F) {
+                    	System.out.println(current.getPosition().x + current.getWidth() - pos.x);
                         collidable.add(current);
                     }
                 }

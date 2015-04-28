@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.xemplar.games.android.resource.controller.PlayerController;
 import com.xemplar.games.android.resource.entities.Entity;
 import com.xemplar.games.android.resource.model.World;
@@ -33,8 +34,8 @@ public class GameScreen implements Screen, InputProcessor {
 
     private Array<Tile> tiles;
     private static int levelNum;
-    private static ProgressCircle cir;
-
+    private static ObjectMap<String, ProgressCircle> processes = new ObjectMap<String, ProgressCircle>();
+    private static Array<String> processID = new Array<String>();
     private WorldRenderer renderer;
     private PlayerController controller;
     private ShapeRenderer button;
@@ -126,7 +127,8 @@ public class GameScreen implements Screen, InputProcessor {
                 attack.renderText(batch);
             }
             
-            if(cir != null){
+            for(String str : processID){
+            	ProgressCircle cir = processes.get(str);
             	cir.render(batch);
             }
             //world.getJaxon().inventory.renderItems(batch, width, height, buttonSize * 0.75F);
@@ -320,15 +322,28 @@ public class GameScreen implements Screen, InputProcessor {
         }
     }
 
-    public static void postTask(ProgressReporter reporter, long ticks){
-    	if(cir == null){
-    		cir = new ProgressCircle(reporter, Color.WHITE, 50F, 50F, width / WorldRenderer.CAMERA_WIDTH, height / WorldRenderer.CAMERA_HEIGHT);
-    		cir.start();
+    public static void postTask(String id, ProgressReporter reporter, long ticks){
+    	processID.add(id);
+    	processes.put(id, new ProgressCircle(reporter, Color.WHITE, 50F, 50F, width / WorldRenderer.CAMERA_WIDTH, height / WorldRenderer.CAMERA_HEIGHT));
+    	processes.get(id).start();
+    }
+    
+    public static void cancelTask(String id){
+    	for(int i = 0; i < processID.size; i++){
+    		if(id == processID.get(i)){
+    			processID.removeIndex(i);
+    			processes.remove(id);
+    		}
     	}
     }
     
-    public static void taskFinished(){
-    	cir = null;
+    public static void taskFinished(String id){
+    	for(int i = 0; i < processID.size; i++){
+    		if(id == processID.get(i)){
+    			processID.removeIndex(i);
+    			processes.remove(id);
+    		}
+    	}
     }
     
     public static TextureAtlas getTextureAltlas(){

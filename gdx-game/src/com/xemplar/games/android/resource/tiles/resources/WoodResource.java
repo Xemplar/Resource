@@ -16,5 +16,4 @@ public class WoodResource extends AbstractResource{
 	public ItemStack getItem() {
 		return null;
 	}
-	
 }

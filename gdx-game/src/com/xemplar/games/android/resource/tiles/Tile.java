@@ -66,6 +66,10 @@ public class Tile {
         return false;
     }
 
+    public void initTouch(Entity e){
+
+    }
+    
     public void onTouch(Entity e){
 
     }
